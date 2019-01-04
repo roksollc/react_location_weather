@@ -1,0 +1,32 @@
+.daily-weather-card {
+    height: 150px;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.daily-weather-card .icon {
+    height: 50px;
+    max-width: 50px;
+}
+
+.daily-weather-display {
+    background-color: #CFD8DC;
+    position: relative;
+    width: 100%;
+}
+
+.daily-weather-display .container {
+    display: flex;
+    justify-content: center;
+}
+
+.daily-weather-display .container .forecasts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.daily-weather-display .container .forecasts .no-data {
+    padding-bottom: 20px;
+}

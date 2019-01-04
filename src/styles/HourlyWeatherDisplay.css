@@ -1,0 +1,28 @@
+.hourly-weather-card {
+    height: 150px;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.hourly-weather-card .icon {
+    height: 50px;
+    max-width: 50px;
+}
+
+.hourly-weather-display {
+    background-color: lightSteelBlue;
+    position: relative;
+    width: 100%;
+}
+
+.hourly-weather-display .container {
+    display: flex;
+    justify-content: center;
+}
+
+.hourly-weather-display .container .forecasts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
