@@ -1,13 +1,18 @@
+// IMPORT PACKAGE REFERENCES
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { HourlyWeatherForecastCard } from './HourlyWeatherForecastCard';
+
+// IMPORT COMPONENT REFERENCES
+import HourlyWeatherForecastCard from './HourlyWeatherForecastCard';
+
+// IMPORT CSS
 import '../../styles/HourlyWeatherDisplay.css';
 
 class HourlyWeatherDisplay extends Component {
-    render(){
+    render() {
         return (
             <div className="hourly-weather-display">
-                <div className="text-center h5 pt-2">Hourly</div>
+                <div className="text-center h5 pt-2">Hourly Forecast</div>
                 <div className="container">
                     <div className="forecasts">
                         {
@@ -26,4 +31,4 @@ HourlyWeatherDisplay.propTypes = {
     hourlyForecasts: PropTypes.array.isRequired
 };
 
-export { HourlyWeatherDisplay };
+export default HourlyWeatherDisplay;

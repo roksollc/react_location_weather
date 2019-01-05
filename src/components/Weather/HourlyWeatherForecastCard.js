@@ -1,5 +1,5 @@
 // IMPORT PACKAGE REFERENCES
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 
@@ -7,24 +7,27 @@ const getTime = (date) => {
     return `${date.getHours()}:00`;
 };
 
+class HourlyWeatherForecastCard extends Component {
+    render() {
+        const { forecast } = this.props;
 
-const HourlyWeatherForecastCard = ({ forecast }) => (
-    <div className="hourly-weather-card">
-        <small>{getTime(forecast.date)}</small>
-        <img alt="forecast" className="icon mx-auto" src={forecast.icon} />
-        <div className="font-weight-bold">
-            {parseInt(forecast.temperature.current)}&deg;
-        </div>
-        <div className="text-capitalize">
-            <small>{forecast.condition}</small>
-        </div>
-    </div>
-);
-
+        return (
+            <div className="hourly-weather-card">
+                <small>{getTime(forecast.date)}</small>
+                <img alt="forecast" className="icon mx-auto" src={forecast.icon} />
+                <div className="font-weight-bold">
+                    {parseInt(forecast.temperature.current)}&deg;
+                </div>
+                <div className="text-capitalize">
+                    <small>{forecast.condition}</small>
+                </div>
+            </div>
+        );
+    }
+}
 
 HourlyWeatherForecastCard.propTypes = {
     forecast: PropTypes.object.isRequired
 };
 
-
-export { HourlyWeatherForecastCard };
+export default HourlyWeatherForecastCard;

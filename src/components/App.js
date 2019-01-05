@@ -1,22 +1,55 @@
+// IMPORT PACKAGE REFERENCES
 import React, { Component } from 'react';
-import { Header } from './Header';
-import { WeatherDashboard } from './Weather/WeatherDashboard';
+import { BrowserRouter, Route } from 'react-router-dom';
+
+// IMPORT COMPONENT REFERENCES
+import Header from './Header';
+import WeatherDashboard from './Weather/WeatherDashboard';
+
+// IMPORT CSS
 import '../styles/App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div>
-        <Header title="Weather" />
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            weatherCity: null,
+            weatherState: null
+        }
+
+        this.handleWeatherCityChange = this.handleWeatherCityChange.bind(this);
+    }
+
+    handleWeatherCityChange(city, state) {
+        this.setState({weatherCity: city, weatherState: state});
+    }
+
+    render() {
+        return (
+            <BrowserRouter>
+            <div>
+                <Header title="Weather" />
         
-        <div className="mt-lg-5">
-          <div className="col-lg-12 p-0 mx-auto">
-            <WeatherDashboard />
-          </div>
-        </div>
-      </div>
-      );
-  }
+                <div className="mt-lg-5">
+                    <div className="col-lg-12 p-0 mx-auto">
+                        <Route exact path='/' render={(props) => 
+                            <WeatherDashboard mode="none" 
+                                              inputChange={this.handleWeatherCityChange} 
+                                              weatherCity={this.state.weatherCity} 
+                                              weatherState={this.state.weatherState} />} />
+
+                        <Route path='/weather' render={(props) => 
+                            <WeatherDashboard mode="weather" 
+                                              weatherCity={this.state.weatherCity} 
+                                              weatherState={this.state.weatherState} />} />
+                    </div>
+                </div>
+            </div>
+        </BrowserRouter>
+        );
+    }
 }
 
 export default App;

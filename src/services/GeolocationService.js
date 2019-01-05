@@ -1,6 +1,7 @@
-// import axios from 'axios';
-
+// API Key - Change to your API_KEY
 const API_KEY = "qs6ZLVKFSF1SVbAYmUcbdsXjZf8hZRnt";
+
+// base URL to MapQuest API
 const BASE_URL = 'http://www.mapquestapi.com/geocoding/v1/address';
 
 class GeolocationService {
@@ -17,14 +18,8 @@ class GeolocationService {
             })
             .then(response => response.json())
             .then(data => {
-        // console.log("RESPONSE");
-        // console.log(data);
                 if(data && data.info.statuscode === 0) {
-                    // NOTE: Only taking the first...TODO?
-                    // TODO! Check for empty?
                     const { lat, lng } = data.results[0].locations[0].latLng;
-        // console.log("POSITION");
-        // console.log(lat + ", " + lng);        
                     resolve({
                         latitude: lat,
                         longitude: lng
@@ -44,4 +39,4 @@ class GeolocationService {
     }
 }
 
-export { GeolocationService };
+export default GeolocationService;
