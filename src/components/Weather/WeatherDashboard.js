@@ -26,7 +26,8 @@ class WeatherDashboard extends Component {
         this.state = {
             showCurrentWeather: false,
             showHourlyWeather: false,
-            dataLoaded: false
+            errorLoading: false,
+            errorMessage: ""
         };
 
         this.handleOnRefresh = this.handleOnRefresh.bind(this);
@@ -49,7 +50,12 @@ class WeatherDashboard extends Component {
                     this.loadHourlyWeatherByPosition(pos);
                 }
             })
-            .catch(error => console.log(error));      
+            .catch(error => {
+                console.log(error);
+                if(this.mounted) {
+                    this.setState({ errorLoading: true, errorMessage: error });
+                }
+            });      
     }
 
     loadCurrentWeatherByPosition(position) {
@@ -64,7 +70,12 @@ class WeatherDashboard extends Component {
                     this.setState(() => ({ weather: weather, showCurrentWeather: true }));
                 }
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                if(this.mounted) {
+                    this.setState({ errorLoading: true, errorMessage: error });
+                }
+            });
     }
 
     loadHourlyWeatherByPosition(position) {
@@ -79,7 +90,12 @@ class WeatherDashboard extends Component {
                     this.setState(() => ({ hourlyForecasts: hourlyForecasts, showHourlyWeather: true }));
                 }
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                if(this.mounted) {
+                    this.setState({ errorLoading: true, errorMessage: error });
+                }
+            });
     }
 
     handleOnRefresh() {
@@ -106,7 +122,7 @@ class WeatherDashboard extends Component {
             return this.renderNoCity();
         }
 
-        if(!this.state.dataLoaded) {
+        if(!this.state.showCurrentWeather && !this.state.showHourlyWeather && !this.state.errorLoading) {
             this.loadData(this.props.weatherCity, this.props.weatherState);
         }
 
@@ -120,9 +136,15 @@ class WeatherDashboard extends Component {
                     </div>
                 }
                 {
-                    (!this.state.showCurrentWeather || !this.state.showHourlyWeather) &&
+                    (!this.state.showCurrentWeather || !this.state.showHourlyWeather) && !this.state.errorLoading &&
                     <div className="w-100 text-center mt-5">
                         <i className="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                    </div>
+                }
+                {
+                    this.state.errorLoading &&
+                    <div className="error text-center">
+                        ERROR: {this.state.errorMessage}
                     </div>
                 }
             </div>

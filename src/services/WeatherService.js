@@ -13,25 +13,33 @@ const getWeather = (url) => {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                const { main, icon } = data.weather[0];
-                const { temp, temp_min, temp_max } = data.main;
-                const { lon, lat } = data.coord;
-                const { dt, name } = data;
-                resolve({
-                    condition: main,
-                    date: new Date(dt * 1000),
-                    icon: `${WEATHER_IMG_URL}/${icon}.png`,
-                    location: {
-                        name: name,
-                        latitude: lat,
-                        longitude: lon
-                    },
-                    temperature: {
-                        current: temp,
-                        minimum: temp_min,
-                        maximum: temp_max
-                    }
-                });
+                if(data.cod === 0) {
+                    const { main, icon } = data.weather[0];
+                    const { temp, temp_min, temp_max } = data.main;
+                    const { lon, lat } = data.coord;
+                    const { dt, name } = data;
+                    resolve({
+                        condition: main,
+                        date: new Date(dt * 1000),
+                        icon: `${WEATHER_IMG_URL}/${icon}.png`,
+                        location: {
+                            name: name,
+                            latitude: lat,
+                            longitude: lon
+                        },
+                        temperature: {
+                            current: temp,
+                            minimum: temp_min,
+                            maximum: temp_max
+                        }
+                    });
+                }
+                else if(data.cod === 429) {
+                    reject('Too many requests to weather API');
+                }
+                else {
+                    reject('Unknown error with weather API');
+                }
             })
             .catch(error => reject(error.message));
     });
@@ -43,25 +51,33 @@ const getHourlyWeather = (url) => {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                const location = {
-                    name: data.city.name,
-                    latitude: data.city.coord.lat,
-                    longitude: data.city.coord.lon
-                };                    
+                if(data.cod === 0) {
+                    const location = {
+                        name: data.city.name,
+                        latitude: data.city.coord.lat,
+                        longitude: data.city.coord.lon
+                    };                    
 
-                const hourlyForecasts = data.list.map(fc => {
-                    return {
-                        condition: fc.weather[0].description,
-                        date: new Date(fc.dt * 1000),
-                        icon: `${WEATHER_IMG_URL}/${fc.weather[0].icon}.png`,
-                        location: location,
-                        temperature: {
-                            current: fc.main.temp
-                        }
-                    };
-                });
-                
-                resolve(hourlyForecasts);
+                    const hourlyForecasts = data.list.map(fc => {
+                        return {
+                            condition: fc.weather[0].description,
+                            date: new Date(fc.dt * 1000),
+                            icon: `${WEATHER_IMG_URL}/${fc.weather[0].icon}.png`,
+                            location: location,
+                            temperature: {
+                                current: fc.main.temp
+                            }
+                        };
+                    });
+                    
+                    resolve(hourlyForecasts);
+                }
+                else if(data.cod === 429) {
+                    reject('Too many requests to weather API');
+                }
+                else {
+                    reject('Unknown error with weather API');
+                }
             })
             .catch(error => reject(error.message));
     });
