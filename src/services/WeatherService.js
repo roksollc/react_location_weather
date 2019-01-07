@@ -13,7 +13,7 @@ const getWeather = (url) => {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                if(data.cod === 200) {
+                if(parseInt(data.cod) === 200) {
                     const { main, icon } = data.weather[0];
                     const { temp, temp_min, temp_max } = data.main;
                     const { lon, lat } = data.coord;
@@ -52,7 +52,7 @@ const getHourlyWeather = (url) => {
             .then(response => response.json())
             .then(data => {
                 // IMPORTANT: this API call returns the status code as a `string`
-                if(data.cod === "200") {
+                if(parseInt(data.cod) === 200) {
                     const location = {
                         name: data.city.name,
                         latitude: data.city.coord.lat,
