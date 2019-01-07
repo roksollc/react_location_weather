@@ -8,6 +8,7 @@ import HourlyWeatherForecastCard from './HourlyWeatherForecastCard';
 // IMPORT CSS
 import '../../styles/HourlyWeatherDisplay.css';
 
+// `HourlyWeatherDisplay` COMPONENT
 class HourlyWeatherDisplay extends Component {
     render() {
         return (

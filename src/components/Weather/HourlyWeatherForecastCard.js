@@ -2,11 +2,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-
+// `getTime` FUNCTION
 const getTime = (date) => {
     return `${date.getHours()}:00`;
 };
 
+// `HourlyWeatherForecastCard` COMPONENT
 class HourlyWeatherForecastCard extends Component {
     render() {
         const { forecast } = this.props;

@@ -18,9 +18,8 @@ import '../../styles/WeatherDashboard.css';
 const weatherService = new WeatherService();
 const geolocationService = new GeolocationService();
 
-
+// `WeatherDashboard` COMPONENT
 class WeatherDashboard extends Component {
-
     constructor(props) {
         super(props);
 
@@ -45,8 +44,10 @@ class WeatherDashboard extends Component {
         geolocationService
             .getCurrentPosition(city, state)
             .then(pos => {
-                this.loadCurrentWeatherByPosition(pos);
-                this.loadHourlyWeatherByPosition(pos);
+                if(this.mounted) {
+                    this.loadCurrentWeatherByPosition(pos);
+                    this.loadHourlyWeatherByPosition(pos);
+                }
             })
             .catch(error => console.log(error));      
     }
@@ -100,49 +101,6 @@ class WeatherDashboard extends Component {
         );
     }
 
-    renderCurrentWeather() {
-        return (
-            <div>
-                {
-                    this.state.showCurrentWeather &&
-                    <div>
-                        <CurrentWeatherDisplay weather={this.state.weather} 
-                                               weatherCity={this.props.weatherCity} 
-                                               weatherState={this.props.weatherState}
-                                               onRefresh={this.handleOnRefresh} />
-                    </div>
-                }
-                {
-                    !this.state.showCurrentWeather &&
-                    <div className="w-100 text-center mt-5">
-                        <i className="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-                    </div>
-                }
-            </div>
-        );
-    }
-
-    renderHourlyWeather() {
-        return (
-            <div>
-                {
-                    this.state.showHourlyWeather &&
-                    <div>
-                        <HourlyWeatherDisplay hourlyForecasts={this.state.hourlyForecasts} 
-                                              weatherCity={this.props.weatherCity} 
-                                              weatherState={this.props.weatherState} />
-                    </div>
-                }
-                {
-                    !this.state.showHourlyWeather &&
-                    <div className="w-100 text-center mt-5">
-                        <i className="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-                    </div>
-                }
-            </div>
-        );
-    }
-
     renderWeather() {
         if(this.props.weatherCity === null || this.props.weatherState == null) {
             return this.renderNoCity();
@@ -183,6 +141,5 @@ class WeatherDashboard extends Component {
         return (this.props.mode === "none") ? this.renderInput() : this.renderWeather();
     }
 }
-
 
 export default WeatherDashboard;

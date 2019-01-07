@@ -9,8 +9,8 @@ import WeatherDashboard from './Weather/WeatherDashboard';
 // IMPORT CSS
 import '../styles/App.css';
 
+// `App` COMPONENT
 class App extends Component {
-
     constructor(props) {
         super(props);
 
@@ -29,25 +29,25 @@ class App extends Component {
     render() {
         return (
             <BrowserRouter>
-            <div>
-                <Header title="Weather" />
-        
-                <div className="mt-lg-5">
-                    <div className="col-lg-12 p-0 mx-auto">
-                        <Route exact path='/' render={(props) => 
-                            <WeatherDashboard mode="none" 
-                                              inputChange={this.handleWeatherCityChange} 
-                                              weatherCity={this.state.weatherCity} 
-                                              weatherState={this.state.weatherState} />} />
+                <div>
+                    <Header title="Weather" />
+            
+                    <div className="mt-lg-5">
+                        <div className="col-lg-12 p-0 mx-auto">
+                            <Route exact path='/' render={(props) => 
+                                <WeatherDashboard mode="none" 
+                                                inputChange={this.handleWeatherCityChange} 
+                                                weatherCity={this.state.weatherCity} 
+                                                weatherState={this.state.weatherState} />} />
 
-                        <Route path='/weather' render={(props) => 
-                            <WeatherDashboard mode="weather" 
-                                              weatherCity={this.state.weatherCity} 
-                                              weatherState={this.state.weatherState} />} />
+                            <Route path='/weather' render={(props) => 
+                                <WeatherDashboard mode="weather" 
+                                                weatherCity={this.state.weatherCity} 
+                                                weatherState={this.state.weatherState} />} />
+                        </div>
                     </div>
                 </div>
-            </div>
-        </BrowserRouter>
+            </BrowserRouter>
         );
     }
 }

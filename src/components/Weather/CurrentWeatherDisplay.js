@@ -5,13 +5,14 @@ import PropTypes from 'prop-types';
 // IMPORT CSS
 import '../../styles/CurrentWeatherDisplay.css';
 
-
+// `getUpdateTime` FUNCTION
 const getUpdateTime = (date) => {
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padEnd(2, '0');
     return `${hours}:${minutes}`;
 };
 
+// `CurrentWeatherDisplay` COMPONENT
 class CurrentWeatherDisplay extends Component {
     render() {
         const { weather } = this.props;
@@ -33,7 +34,6 @@ class CurrentWeatherDisplay extends Component {
         );
     }
 };
-
 
 CurrentWeatherDisplay.propTypes = {
     onRefresh: PropTypes.func.isRequired,

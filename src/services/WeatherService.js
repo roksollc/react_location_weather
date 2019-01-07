@@ -7,7 +7,7 @@ const WEATHER_BASE_URL = 'http://api.openweathermap.org/data/2.5';
 // base URL for images at OpenWeatherMap
 const WEATHER_IMG_URL = 'http://openweathermap.org/img/w';
 
-
+// `getWeather` FUNCTION
 const getWeather = (url) => {
     return new Promise((resolve, reject) => {
         fetch(url)
@@ -37,6 +37,7 @@ const getWeather = (url) => {
     });
 };
 
+// `getHourlyWeather` FUNCTION
 const getHourlyWeather = (url) => {
     return new Promise((resolve, reject) => {
         fetch(url)
@@ -66,8 +67,8 @@ const getHourlyWeather = (url) => {
     });
 };
 
+// `WeatherService` CLASS
 class WeatherService {
-
     getCurrentWeatherByPosition({latitude, longitude}) {
         if (!latitude) throw Error('Latitude is required');
         if (!longitude) throw Error('Longitude is required');

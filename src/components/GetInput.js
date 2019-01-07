@@ -8,9 +8,8 @@ import { getAllCountries, getStatesOfCountry, getStateById, getCitiesOfState, ge
 // IMPORT CSS
 import '../styles/GetInput.css';
 
-
+// `GetInput` COMPONENT
 class GetInput extends Component {
-
     constructor(props) {
         super(props);
 
@@ -111,6 +110,5 @@ class GetInput extends Component {
         );
     }
 }
-
 
 export default GetInput;

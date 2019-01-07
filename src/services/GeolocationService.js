@@ -4,8 +4,8 @@ const API_KEY = "qs6ZLVKFSF1SVbAYmUcbdsXjZf8hZRnt";
 // base URL to MapQuest API
 const BASE_URL = 'http://www.mapquestapi.com/geocoding/v1/address';
 
+// `GeolocationService` CLASS
 class GeolocationService {
-
     getCurrentPosition(city, state) {
         const url = `${BASE_URL}?key=${API_KEY}`;
         const location = city + "," + state;

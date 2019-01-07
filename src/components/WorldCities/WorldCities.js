@@ -1,7 +1,9 @@
+// IMPORT JSON DATA
 var countryList = require("./lib/country.json")
 var stateList = require("./lib/state.json")
 var cityList = require("./lib/city.json")
 
+// FUNCTIONS TO ACCESS JSON DATA
 var WorldCities = {
 	getCountryById: function(id) {
 		return _findEntry(countryList, id);
