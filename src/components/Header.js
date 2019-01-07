@@ -14,7 +14,7 @@ class Header extends Component {
                 <div className="container">
                     <div className="brand">
                         <Link to='/'><i className="brand-icon fa fa-sun-o fa-2x"></i></Link>
-                        <span className="brand-text">{props.title}</span>
+                        <span className="brand-text">{this.props.title}</span>
                     </div>
                     
                     <div className="header-navigation">
