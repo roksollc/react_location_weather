@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 // IMPORT COMPONENT REFERENCES
 import CurrentWeatherDisplay from './CurrentWeatherDisplay';
 import HourlyWeatherDisplay from './HourlyWeatherDisplay';
-import GetInput from '../GetInput';
+import CitySelector from "../CitySelector";
 
 // IMPORT SERVICES
 import WeatherService from '../../services/WeatherService';
@@ -154,7 +154,7 @@ class WeatherDashboard extends Component {
     renderInput() {
         return (
             <div>
-                <GetInput onChangeCity={this.props.inputChange} />
+                <CitySelector onChangeCity={this.props.inputChange} />
             </div>
         );
     }

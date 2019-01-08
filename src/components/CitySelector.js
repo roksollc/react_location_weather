@@ -6,10 +6,10 @@ import { Link } from 'react-router-dom';
 import { getAllCountries, getStatesOfCountry, getStateById, getCitiesOfState, getCityById } from './WorldCities/WorldCities';
 
 // IMPORT CSS
-import '../styles/GetInput.css';
+import '../styles/CitySelector.css';
 
-// `GetInput` COMPONENT
-class GetInput extends Component {
+// `CitySelector` COMPONENT
+class CitySelector extends Component {
     constructor(props) {
         super(props);
 
@@ -111,4 +111,4 @@ class GetInput extends Component {
     }
 }
 
-export default GetInput;
+export default CitySelector;
