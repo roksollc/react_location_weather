@@ -1,5 +1,5 @@
 // API Key - Change to your API_KEY
-const API_KEY = "qs6ZLVKFSF1SVbAYmUcbdsXjZf8hZRnt";
+const API_KEY = "MAPQUEST_API_KEY";
 
 // base URL to MapQuest API
 const BASE_URL = 'http://www.mapquestapi.com/geocoding/v1/address';
