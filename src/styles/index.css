@@ -9,10 +9,5 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-.btn {
-  cursor: pointer;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
