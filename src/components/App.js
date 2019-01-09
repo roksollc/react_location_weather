@@ -1,5 +1,5 @@
 // IMPORT PACKAGE REFERENCES
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 // IMPORT COMPONENT REFERENCES
@@ -10,46 +10,21 @@ import WeatherDashboard from './Weather/WeatherDashboard';
 import '../styles/App.css';
 
 // `App` COMPONENT
-class App extends Component {
-    constructor(props) {
-        super(props);
+const App = props => {
+    return (
+        <BrowserRouter>
+            <div>
+                <Header title="Weather" />
 
-        this.state = {
-            weatherCity: null,
-            weatherState: null
-        }
-
-        this.handleWeatherCityChange = this.handleWeatherCityChange.bind(this);
-    }
-
-    handleWeatherCityChange(city, state) {
-        this.setState({weatherCity: city, weatherState: state});
-    }
-
-    render() {
-        return (
-            <BrowserRouter>
-                <div>
-                    <Header title="Weather" />
-            
-                    <div className="mt-lg-5">
-                        <div className="col-lg-12 p-0 mx-auto">
-                            <Route exact path='/' render={(props) => 
-                                <WeatherDashboard mode="none" 
-                                                inputChange={this.handleWeatherCityChange} 
-                                                weatherCity={this.state.weatherCity} 
-                                                weatherState={this.state.weatherState} />} />
-
-                            <Route path='/weather' render={(props) => 
-                                <WeatherDashboard mode="weather" 
-                                                weatherCity={this.state.weatherCity} 
-                                                weatherState={this.state.weatherState} />} />
-                        </div>
+                <div className="mt-lg-5">
+                    <div className="col-lg-12 p-0 mx-auto">
+                        <Route exact path='/' render={_ => <WeatherDashboard mode="none" />} />
+                        <Route path='/weather' render={_ => <WeatherDashboard mode="weather" />} />
                     </div>
                 </div>
-            </BrowserRouter>
-        );
-    }
+            </div>
+        </BrowserRouter>
+    );
 }
 
 export default App;

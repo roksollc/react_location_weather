@@ -1,38 +1,37 @@
 // IMPORT PACKAGE REFERENCES
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 // IMPORT COMPONENT REFERENCES
 import CurrentWeatherDisplay from './CurrentWeatherDisplay';
 import HourlyWeatherDisplay from './HourlyWeatherDisplay';
 import CitySelector from "../CitySelector";
 
-// IMPORT SERVICES
-import WeatherService from '../../services/WeatherService';
-import GeolocationService from '../../services/GeolocationService';
+// IMPORT ACTIONS
+import {
+    loadedLocationData,
+    loadedCurrentWeatherData,
+    loadedHourlyWeatherData,
+    refreshWeather,
+    apiError
+} from '../../actions';
+
+// IMPORT WORLD CITIES
+import { getCityById, getStateById } from '../WorldCities/WorldCities';
 
 // IMPORT CSS
 import '../../styles/WeatherDashboard.css';
 
-// INITIALIZE SERVICES
+// IMPORT AND INITIALIZE SERVICES
+import WeatherService from '../../services/WeatherService';
+import GeolocationService from '../../services/GeolocationService';
+
 const weatherService = new WeatherService();
 const geolocationService = new GeolocationService();
 
 // `WeatherDashboard` COMPONENT
 class WeatherDashboard extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            showCurrentWeather: false,
-            showHourlyWeather: false,
-            errorLoading: false,
-            errorMessage: ""
-        };
-
-        this.handleOnRefresh = this.handleOnRefresh.bind(this);
-    }
-
     componentDidMount() {
         this.mounted = true;
     }
@@ -51,9 +50,8 @@ class WeatherDashboard extends Component {
                 }
             })
             .catch(error => {
-                console.log(error);
                 if(this.mounted) {
-                    this.setState({ errorLoading: true, errorMessage: error });
+                    this.props.onAPIError(true, error.message);
                 }
             });      
     }
@@ -65,15 +63,14 @@ class WeatherDashboard extends Component {
 
         weatherService
             .getCurrentWeatherByPosition(position)
-            .then(weather => {
+            .then(data => {
                 if(this.mounted) {
-                    this.setState(() => ({ weather: weather, showCurrentWeather: true }));
+                    this.props.onCurrentWeatherData(data);
                 }
             })
             .catch(error => {
-                console.log(error);
                 if(this.mounted) {
-                    this.setState({ errorLoading: true, errorMessage: error });
+                    this.props.onAPIError(true, error.message);
                 }
             });
     }
@@ -85,26 +82,16 @@ class WeatherDashboard extends Component {
 
         weatherService
             .getHourlyWeatherByPosition(position)
-            .then(hourlyForecasts => {
+            .then(data => {
                 if(this.mounted) {
-                    this.setState(() => ({ hourlyForecasts: hourlyForecasts, showHourlyWeather: true }));
+                    this.props.onHourlyWeatherData(data);
                 }
             })
             .catch(error => {
-                console.log(error);
                 if(this.mounted) {
-                    this.setState({ errorLoading: true, errorMessage: error });
+                    this.props.onAPIError(true, error.message);
                 }
             });
-    }
-
-    handleOnRefresh() {
-        this.setState(() => ({
-            showCurrentWeather: false,
-            showHourlyWeather: false
-        }));
-
-        this.loadData(this.props.weatherCity, this.props.weatherState);
     }
 
     renderNoCity() {
@@ -117,46 +104,50 @@ class WeatherDashboard extends Component {
         );
     }
 
+    renderErrorMessage() {
+        if(this.props.errorLoading) {
+            return (
+                <div className="error text-center">
+                    API ERROR: {this.props.errorMessage}
+                </div>
+            );
+        }
+        else return <div></div>;
+    }
+
     renderWeather() {
         if(this.props.weatherCity === null || this.props.weatherState == null) {
             return this.renderNoCity();
         }
 
-        if(!this.state.showCurrentWeather && !this.state.showHourlyWeather && !this.state.errorLoading) {
+        if(!this.props.weather && !this.props.hourlyForecasts && !this.props.errorLoading) {
             this.loadData(this.props.weatherCity, this.props.weatherState);
         }
 
         return (
             <div>
                 {
-                    this.state.showCurrentWeather && this.state.showHourlyWeather &&
+                    this.props.weather && this.props.hourlyForecasts &&
                     <div>
-                        <CurrentWeatherDisplay weather={this.state.weather} onRefresh={this.handleOnRefresh} />
-                        <HourlyWeatherDisplay hourlyForecasts={this.state.hourlyForecasts} />
+                        <CurrentWeatherDisplay weather={this.props.weather} onRefresh={this.props.onRefresh} />
+                        <HourlyWeatherDisplay hourlyForecasts={this.props.hourlyForecasts} />
                     </div>
                 }
                 {
-                    (!this.state.showCurrentWeather || !this.state.showHourlyWeather) && !this.state.errorLoading &&
+                    (!this.props.weather || !this.props.hourlyForecasts) && !this.props.errorLoading &&
                     <div className="w-100 text-center mt-5">
                         <i className="fa fa-spinner fa-spin fa-3x fa-fw"></i>
                     </div>
                 }
                 {
-                    this.state.errorLoading &&
-                    <div className="error text-center">
-                        ERROR: {this.state.errorMessage}
-                    </div>
+                    this.renderErrorMessage()
                 }
             </div>
         );
     }
 
     renderInput() {
-        return (
-            <div>
-                <CitySelector onChangeCity={this.props.inputChange} />
-            </div>
-        );
+        return <div><CitySelector /></div>;
     }
 
     render() {
@@ -164,4 +155,35 @@ class WeatherDashboard extends Component {
     }
 }
 
-export default WeatherDashboard;
+const getCityName = cityId => {
+    let city = getCityById(cityId);
+    return (city === "") ? null : city.name;
+}
+
+const getStateName = stateId => {
+    let state = getStateById(stateId);
+    return (state === "") ? null : state.name;
+}
+
+const mapStateToProps = state => {
+    return {
+        weatherCity: getCityName(state.locationSelection.city),
+        weatherState: getStateName(state.locationSelection.state),
+        weather: state.weather.current,
+        hourlyForecasts: state.weather.hourly,
+        errorLoading: state.weather.error,
+        errorMessage: state.weather.errorMessage
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onLocationData: coord => dispatch(loadedLocationData(coord)),
+        onCurrentWeatherData: d => dispatch(loadedCurrentWeatherData(d)),
+        onHourlyWeatherData: d => dispatch(loadedHourlyWeatherData(d)),
+        onAPIError: (e, m) => dispatch(apiError(e, m)),
+        onRefresh: _ => dispatch(refreshWeather())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WeatherDashboard);

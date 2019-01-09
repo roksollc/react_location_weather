@@ -33,7 +33,7 @@ class GeolocationService {
                 }
             })
             .catch(e => {
-                console.log(`Error: ${e.message}, Reason: ${e.reason}`);
+                reject(e)
             });
         });
     }
