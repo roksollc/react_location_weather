@@ -7,7 +7,7 @@ const BASE_URL = 'http://www.mapquestapi.com/geocoding/v1/address';
 // `GeolocationService` CLASS
 class GeolocationService {
     getCurrentPosition(city, state) {
-        // You can use this function to fetch geopolitical data
+        // You can use this function to fetch geographic data
         // using the MapQuest Geocoding API.
 
         // Don't forget promises!

@@ -11,14 +11,14 @@ const WEATHER_IMG_URL = 'http://openweathermap.org/img/w';
 class WeatherService {
     getCurrentWeatherByPosition({latitude, longitude}) {
         // You can use this function to fetch current weather data
-        // for a geopolitical coordinate using the OpenWeatherMap API.
+        // for a geographic coordinate using the OpenWeatherMap API.
 
         // Don't forget promises!
     }
 
     getHourlyWeatherByPosition({latitude, longitude}) {
         // You can use this function to fetch hourly weather data
-        // for a geopolitical coordinate using the OpenWeatherMap API.
+        // for a geographic coordinate using the OpenWeatherMap API.
 
         // Don't forget promises!
     }

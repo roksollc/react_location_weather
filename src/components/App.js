@@ -13,7 +13,7 @@ class App extends Component {
 
         // Initialize your state:
         //      You'll need the selected city (and state/region) 
-        //      to acquire geopolitical coordinates and weather
+        //      to acquire geographic coordinates and weather
     }
 
     render() {
