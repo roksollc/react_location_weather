@@ -27,12 +27,10 @@ class GeolocationService {
                         const msg = data.info.messages.length ? 
                             data.info.messages[0] :
                             "Unable to retrieve current location";
-                        reject("ERROR: " + msg);
+                        reject(msg);
                     }
                 })
-                .catch(e => {
-                    console.log(`Error: ${e.message}, Reason: ${e.reason}`);
-                });
+                .catch(error => reject(error.message));
         });
     }
 }
