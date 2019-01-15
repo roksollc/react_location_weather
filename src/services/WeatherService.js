@@ -7,6 +7,27 @@ const WEATHER_BASE_URL = 'http://api.openweathermap.org/data/2.5';
 // base URL for images at OpenWeatherMap
 const WEATHER_IMG_URL = 'http://openweathermap.org/img/w';
 
+// `WeatherService` CLASS
+class WeatherService {
+    getCurrentWeatherByPosition({latitude, longitude}) {
+        if(!latitude) throw Error('Latitude is required');
+        if(!longitude) throw Error('Longitude is required');
+
+        const url = `${WEATHER_BASE_URL}/weather?appid=${WEATHER_API_KEY}&lat=${latitude}&lon=${longitude}&units=imperial`;
+        return getWeather(url);
+    }
+
+    getHourlyWeatherByPosition({latitude, longitude}) {
+        if(!latitude) throw Error('Latitude is required');
+        if(!longitude) throw Error('Longitude is required');
+
+        const url = `${WEATHER_BASE_URL}/forecast?appid=${WEATHER_API_KEY}&lat=${latitude}&lon=${longitude}&units=imperial&cnt=12`;
+        return getHourlyWeather(url);
+    }
+}
+
+export default WeatherService;
+
 // `getWeather` FUNCTION
 const getWeather = (url) => {
     return new Promise((resolve, reject) => {
@@ -83,24 +104,3 @@ const getHourlyWeather = (url) => {
             .catch(error => reject(error.message));
     });
 };
-
-// `WeatherService` CLASS
-class WeatherService {
-    getCurrentWeatherByPosition({latitude, longitude}) {
-        if (!latitude) throw Error('Latitude is required');
-        if (!longitude) throw Error('Longitude is required');
-
-        const url = `${WEATHER_BASE_URL}/weather?appid=${WEATHER_API_KEY}&lat=${latitude}&lon=${longitude}&units=imperial`;
-        return getWeather(url);
-    }
-
-    getHourlyWeatherByPosition({latitude, longitude}) {
-        if (!latitude) throw Error('Latitude is required');
-        if (!longitude) throw Error('Longitude is required');
-
-        const url = `${WEATHER_BASE_URL}/forecast?appid=${WEATHER_API_KEY}&lat=${latitude}&lon=${longitude}&units=imperial&cnt=12`;
-        return getHourlyWeather(url);
-    }
-}
-
-export default WeatherService;
