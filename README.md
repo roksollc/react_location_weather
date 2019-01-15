@@ -20,30 +20,34 @@ The `GeoLocationService` is meant to acquire the geographic coordinates (latitud
 
 [Signup for a free MapQuest Developer Account](https://developer.mapquest.com/plan_purchase/steps/business_edition/business_edition_free/register).
 
-To get instructions on how to use the API, go to [MapQuests's Geocoding API documentation](https://developer.mapquest.com/documentation/geocoding-api/).
+When you sign up, you should be provided an `API Key`. Once you have the key, replace the placeholder (_MAPQUEST_API_KEY_) at the top of the `GeolocationService.js` file:
+
+```js
+// API Key - Change to your API_KEY
+const GEO_API_KEY = "MAPQUEST_API_KEY";
+```
+
+You can [manage your MapQuest API keys on their site](https://developer.mapquest.com/user/me/apps).
+
+You will need to add the necessary code to the `GeolocationService.js` file to acquire data from MapQuests's API. However, a skeleton is provided, and there are comments to help you. Look back throughout the lessons if you need help. The other service &mdash; _WeatherService_ (below) &mdash; has been implemented for you. You can also refer to that source code for ideas or help.
+
+To get details on how to use the API, go to [MapQuests's Geocoding API documentation](https://developer.mapquest.com/documentation/geocoding-api/address/get//).
 
 
 ### WeatherService
 
-The `WeatherService` is meant to acquire weather data, both current and hourly, for specified geographic coordinates (latitude and longitude). In order to implement that functionality, you will need to sign up for a free account at _OpenWeatherMap_ to use their API.
+The `WeatherService` is meant to acquire weather data, both current and hourly, for specified geographic coordinates (latitude and longitude). This service has been implemented for you; however, you will need to sign up for a free account at _OpenWeatherMap_ to use their API.
 
 [Signup for a free account at OpenWeatherMap](https://home.openweathermap.org/users/sign_up).
 
-To get instructions on how to use the API:
+When you sign up, you should be provided an `API Key`. Once you have the key, replace the placeholder (_OPEN_WEATHER_MAP_API_KEY_) at the top of the `WeatherService.js` file:
 
-- Go to the [current weather data API documentation](https://openweathermap.org/current) to get current weather by geographic coordinates.
+```js
+// API Key - Change to your API_KEY
+const WEATHER_API_KEY = "OPEN_WEATHER_MAP_API_KEY";
+```
 
-- Go to the [5 day weather forecast data API documentation]() to get 3-hour weather data by geographic coordinates.
-
-<div class="panel panel-danger">
-    <div class="panel-heading">
-        <h3 class="panel-title">Caution!</h3>
-    </div>
-    <div class="panel-body">
-        <p>The OpenWeatherMap API allows you to request weather data by specifying a city, in addition to geographic coordinates. However, the aim of this project is to utilize <em>two</em> APIs, so use the geographic location version of the API.</p>
-    </div>
-</div>
-
+You can [manage your OpenWeatherMap API keys on their site](https://home.openweathermap.org/api_keys).
 
 ---
 
@@ -79,9 +83,9 @@ Display the selected city and state/region on this page. This is only meant to b
 
 Now that you're able to select a city and pass it to the new route (with the `WeatherDashboard`), you'll next need to get the city's geographic coordinates using the `MapQuest Geolocation API`.
 
-The `GeolocationService` is meant to be used to implement the logic to acquire the coordinates.
+As mentioned earlier, you will need to implement the functionality to get the location data via the API. A skeleton (`GeolocationService.js`) has been created for you with comments to help.
 
-Once you successfully obtain the city's coordinates, display the latitude and longitude values below the city on the page. This will help you verify that all is working properly.
+Once you successfully obtain the city's coordinates, temporarily display the latitude and longitude values below the city on the page. This will help you verify that all is working properly.
 
 ---
 
@@ -89,7 +93,7 @@ Once you successfully obtain the city's coordinates, display the latitude and lo
 
 Now that you're able to select a city and get its geographic coordinates via the _MapQuest Geolocation API_, you'll next need to get the weather data for the city using the `OpenWeatherMap API`.
 
-The `WeatherService` is meant to be used to implement the logic to acquire the weather data.
+The `WeatherService` has been implemented for you &mdash; you only need to replace the API Key and use the service. 
 
 You are welcome to implement a single route (page) to display both the current and hourly weather data, or a route for each.
 
