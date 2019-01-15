@@ -23,11 +23,17 @@ class WeatherDashboard extends Component {
     constructor(props) {
         super(props);
 
+        const { match } = props;
+        let weatherCity = match ? match.params.city : null;
+        let weatherState = match ? match.params.state : null;
+
         this.state = {
             showCurrentWeather: false,
             showHourlyWeather: false,
             errorLoading: false,
-            errorMessage: ""
+            errorMessage: "",
+            weatherCity: weatherCity,
+            weatherState: weatherState
         };
 
         this.handleOnRefresh = this.handleOnRefresh.bind(this);
@@ -118,12 +124,15 @@ class WeatherDashboard extends Component {
     }
 
     renderWeather() {
-        if(this.props.weatherCity === null || this.props.weatherState == null) {
+        let weatherCity = this.props.weatherCity ? this.props.weatherCity : this.state.weatherCity;
+        let weatherState = this.props.weatherState ? this.props.weatherState : this.state.weatherState;
+
+        if(weatherCity === null || weatherState == null) {
             return this.renderNoCity();
         }
 
         if(!this.state.showCurrentWeather && !this.state.showHourlyWeather && !this.state.errorLoading) {
-            this.loadData(this.props.weatherCity, this.props.weatherState);
+            this.loadData(weatherCity, weatherState);
         }
 
         return (

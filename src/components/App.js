@@ -35,15 +35,18 @@ class App extends Component {
                     <div className="mt-lg-5">
                         <div className="col-lg-12 p-0 mx-auto">
                             <Route exact path='/' render={(props) => 
-                                <WeatherDashboard mode="none" 
-                                                inputChange={this.handleWeatherCityChange} 
-                                                weatherCity={this.state.weatherCity} 
-                                                weatherState={this.state.weatherState} />} />
+                                <WeatherDashboard mode="none"
+                                                  inputChange={this.handleWeatherCityChange}
+                                                  weatherCity={this.state.weatherCity}
+                                                  weatherState={this.state.weatherState} />} />
 
-                            <Route path='/weather' render={(props) => 
+                            <Route exact path='/weather' render={(props) => 
                                 <WeatherDashboard mode="weather" 
-                                                weatherCity={this.state.weatherCity} 
-                                                weatherState={this.state.weatherState} />} />
+                                                  weatherCity={this.state.weatherCity}
+                                                  weatherState={this.state.weatherState} />} />
+
+                            <Route path={`/weather/:city,:state`} component={WeatherDashboard} />
+
                         </div>
                     </div>
                 </div>
