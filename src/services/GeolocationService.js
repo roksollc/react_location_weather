@@ -17,8 +17,11 @@ class GeolocationService {
 
         return new Promise((resolve, reject) => {
             // fetch the data using the above URL
+            
                 // THEN convert response into JSON object
+                
                 // THEN process the `response`
+                
                     // IF `response.info.statuscode` equals `0`, there is no error, so...
                         // `response.results` is an array of results
                             //  - the first one is all you'll need
@@ -27,6 +30,7 @@ class GeolocationService {
                         // `response.results[0].locations[0].latLng` is the geographic
                             // coordinates for the 1st location of the 1st result
                             // `latLng` is comprised of `lat` and `lng`
+                            
                     // ELSE IF ERROR
                         // `response.info.messages` is an array of error messages (strings)
         });
