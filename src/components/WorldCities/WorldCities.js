@@ -5,36 +5,20 @@ var cityList = require("./lib/city.json")
 
 // FUNCTIONS TO ACCESS JSON DATA
 var WorldCities = {
-	getCountryById: function(id) {
-		return _findEntry(countryList, id);
-	},
-	getStateById: function(id) {
-		return _findEntry(stateList, id);
-	},
-	getCityById: function(id) {
-		return _findEntry(cityList, id);
-	},
-	getStatesOfCountry: function(countryId) {
-		return stateList.filter(function(value, index) {
-			return value.country_id === countryId
-		})
-	},
-	getCitiesOfState: function(stateId) {
-		return cityList.filter(function(value, index) {
-			return value.state_id === stateId
-		})
-	},
-	getAllCountries: function() {
-		return countryList;
-	}
+	getCountryById: (id) => _findEntry(countryList, id),
+	getStateById: (id) => _findEntry(stateList, id),
+	getCityById: (id) => _findEntry(cityList, id),
+	getStatesOfCountry: (countryId) => stateList.filter((val,) => val.country_id === countryId),
+	getCitiesOfState: (stateId) => cityList.filter((val,) => val.state_id === stateId),
+	getAllCountries: () => countryList
 }
 
-let _findEntry = (source, id) => {
+const _findEntry = (source, id) => {
 	if(!isNaN(id) && source != null) {
-		let idx = source.findIndex((c, i) => c.id === id);
+		const idx = source.findIndex((c,) => c.id === id);
 		return (idx !== -1) ? source[idx] : "";
 	}
-	else return "";
+	return "";
 }
 
 module.exports = WorldCities;

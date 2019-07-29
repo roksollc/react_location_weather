@@ -24,27 +24,37 @@ class CitySelector extends Component {
     }
 
     componentDidMount() {
-        let countries = getAllCountries();
-        this.setState({countries: countries});
+        this.setState({
+            countries: getAllCountries()
+        });
         this.props.onChangeCity(null, null);
     }
 
     countrySelected(key) {
-        let states = getStatesOfCountry(key);
-        this.setState({selectedCountry: key, states: states, selectedState: "0", selectedCity: "0"})
+        this.setState({
+            selectedCountry: key, 
+            states: getStatesOfCountry(key), 
+            selectedState: "0", 
+            selectedCity: "0"
+        });
         this.props.onChangeCity(null, null);
     }
 
     stateSelected(key) {
-        let cities = getCitiesOfState(key);
-        this.setState({selectedState: key, cities: cities, selectedCity: "0"})
+        this.setState({
+            selectedState: key, 
+            cities: getCitiesOfState(key), 
+            selectedCity: "0"
+        });
         this.props.onChangeCity(null, null);
     }
 
     citySelected(key) {
+        this.setState({
+            selectedCity: key
+        });
         let city = getCityById(key);
         let state = getStateById(this.state.selectedState);
-        this.setState({selectedCity: key});
         this.props.onChangeCity(city.name, state.name);
     }
 
