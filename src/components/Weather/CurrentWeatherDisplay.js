@@ -1,5 +1,5 @@
 // IMPORT PACKAGE REFERENCES
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 // IMPORT CSS
@@ -13,26 +13,23 @@ const getUpdateTime = (date) => {
 };
 
 // `CurrentWeatherDisplay` COMPONENT
-class CurrentWeatherDisplay extends Component {
-    render() {
-        const { weather } = this.props;
-
-        return (
-            <div className="current-weather-display" style={{position: 'relative'}}>
-                <div className="weather-location">{weather.location.name}</div>
-                <div className="weather-min-max-temp">{weather.temperature.maximum}&deg; | {weather.temperature.minimum}&deg;</div>
-                <div className="weather-current">                
-                    <span className="weather-temp">{parseInt(weather.temperature.current)} &deg;&nbsp;<sup className="temp-unit">F</sup></span>
-                </div>
-                <div className="weather-condition">
-                    <img alt="" className="weather-icon" src={weather.icon} />
-                    <span className="weather-description">{weather.condition}</span>
-                </div>            
-                <div className="weather-update">Updated as of {getUpdateTime(weather.date)}</div>
-                <i className="refresh fa fa-refresh fa-3x" onClick={this.props.onRefresh}></i>
+const CurrentWeatherDisplay = (props) => {
+    const { weather } = props;
+    return (
+        <div className="current-weather-display" style={{position: 'relative'}}>
+            <div className="weather-location">{weather.location.name}</div>
+            <div className="weather-min-max-temp">{weather.temperature.maximum}&deg; | {weather.temperature.minimum}&deg;</div>
+            <div className="weather-current">                
+                <span className="weather-temp">{parseInt(weather.temperature.current)} &deg;&nbsp;<sup className="temp-unit">F</sup></span>
             </div>
-        );
-    }
+            <div className="weather-condition">
+                <img alt="" className="weather-icon" src={weather.icon} />
+                <span className="weather-description">{weather.condition}</span>
+            </div>            
+            <div className="weather-update">Updated as of {getUpdateTime(weather.date)}</div>
+            <i className="refresh fa fa-refresh fa-3x" onClick={this.props.onRefresh}></i>
+        </div>
+    );
 };
 
 CurrentWeatherDisplay.propTypes = {
