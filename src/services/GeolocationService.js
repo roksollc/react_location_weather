@@ -6,7 +6,7 @@ const GEO_BASE_URL = 'http://www.mapquestapi.com/geocoding/v1/address';
 
 // `GeolocationService` CLASS
 class GeolocationService {
-    getCurrentPosition(city, state) {
+    getPositionFor(city, state) {
         if(!city) throw Error("city is required");
         if(!state) throw Error("state is required");
 

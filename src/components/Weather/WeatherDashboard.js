@@ -43,7 +43,7 @@ class WeatherDashboard extends Component {
 
     loadData(city, state) {
         geolocationService
-            .getCurrentPosition(city, state)
+            .getPositionFor(city, state)
             .then(pos => {
                 if(this.mounted) {
                     this.loadCurrentWeatherByPosition(pos);
